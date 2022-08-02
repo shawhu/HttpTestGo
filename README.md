@@ -7,6 +7,5 @@ It's a console running app so simply
 
     go run httptestgo url concurrent_connections repeatcount waitInRepeats
 
-Features will be added next
-
+## Features will be added next
 Reports and Stats
