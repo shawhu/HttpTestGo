@@ -20,8 +20,10 @@ func main() {
 	argsWithoutProg := os.Args[1:]
 	url := argsWithoutProg[0]
 	if url == "" {
+		//without url argument it won't run obviously
 		return
 	}
+	//setting default values for variables
 	concurrent, err := strconv.Atoi(argsWithoutProg[1])
 	if err != nil {
 		concurrent = 5
@@ -34,7 +36,7 @@ func main() {
 	if err != nil {
 		batchwait = 0
 	}
-
+	//testing to see if the url is good to run
 	fmt.Println("trying to access url: " + url)
 	//try to access url
 	resp, err := http.Get("http://example.com/")
@@ -71,7 +73,8 @@ func main() {
 		time.Sleep(time.Duration(batchwait) * time.Second)
 	}
 
-	fmt.Printf("all done. the stress test last %.2f seconds\n", time.Since(start).Seconds())
+	fmt.Printf("All done. Total requests count: %d. The stress test last %.2f seconds\n",
+		int(concurrent)*repeat, time.Since(start).Seconds()-float64(repeat)*batchwait)
 	fmt.Println("normal exit")
 }
 func MakeRequest(url string, ch chan<- string) {
